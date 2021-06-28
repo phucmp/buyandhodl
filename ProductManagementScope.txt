@@ -1,0 +1,13 @@
+Stories:
+
+1. Add HODL Button (Move Diamond Hands Up)
+2. Add fireworks after the user stops the holding the screen
+3. Implement Emojis Appearing on Screen
+4. Implement Words Appearing on Screen
+5. Refactor Logic for Calculating Price (Want to Go Negative)
+6. Add Open Mouth For increase Price
+7. Research other factors to increase or decrease price 
+
+Not Scoped:
+
+- Add Networth Total and Current Price
