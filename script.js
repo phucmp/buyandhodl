@@ -1,41 +1,45 @@
-/**
- * (c) Facebook, Inc. and its affiliates. Confidential and proprietary.
- */
-
-//==============================================================================
-// Welcome to scripting in Spark AR Studio! Helpful links:
-//
-// Scripting Basics - https://fb.me/spark-scripting-basics
-// Reactive Programming - https://fb.me/spark-reactive-programming
-// Scripting Object Reference - https://fb.me/spark-scripting-reference
-// Changelogs - https://fb.me/spark-changelog
-//
-// For projects created with v87 onwards, JavaScript is always executed in strict mode.
-//==============================================================================
-
-// How to load in modules
-const Scene = require('Scene');
-
-// Use export keyword to make a symbol available in scripting debug console
+const Patches = require('Patches');
+const Random = require('Random');
+const Time = require('Time');
 export const Diagnostics = require('Diagnostics');
 
-// To use variables and functions across files, use export/import keyword
-// export const animationDuration = 10;
+var price = 8.01;
+const timeInMilliseconds = 300;
 
-// Use import keyword to import a symbol from another file
-// import { animationDuration } from './script.js'
+// Calculate Price Multiplier
+function getMulitplier(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
 
-(async function () {  // Enables async/await in JS [part 1]
+// Calculate Price Change
+function changePrice() {
+    var random = Random.random();
+    if (random >= 0.3) 
+    {
+        var multiplier = getMulitplier(1,3);
+        price = price * multiplier;
+    } 
+    else 
+    {
+        var decreaser = Random.random();
+        price = price * decreaser;
+    }
 
-  // To access scene objects
-  // const [directionalLight] = await Promise.all([
-  //   Scene.root.findFirst('directionalLight0')
-  // ]);
+    Patches.inputs.setString('priceText', price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
+}
 
-  // To access class properties
-  // const directionalLightIntensity = directionalLight.intensity;
-
-  // To log messages to the console
-  Diagnostics.log('Console message logged from the script.');
-
-})(); // Enables async/await in JS [part 2]
+// Function that connects to Patch
+(async function() {
+    var intervalTimer;
+    const input1 = await Patches.outputs.getBoolean('isPulse');
+    input1.monitor().subscribe(function (pulse) {
+        if (pulse.newValue == true)
+        {
+            intervalTimer = Time.setInterval(changePrice, timeInMilliseconds);
+        }
+        else
+        {
+            Time.clearInterval(intervalTimer);
+        }
+    });
+})();

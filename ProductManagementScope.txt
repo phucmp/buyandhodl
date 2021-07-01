@@ -1,7 +1,6 @@
 Stories:
-
-1. Add HODL Button (Move Diamond Hands Up)
-2. Add fireworks after the user stops the holding the screen
+1. Add HODL Button (Move Diamond Hands Up) [DONE: June 28, 2021]
+2. Add fireworks after the user stops the holding the screen [IN PROGRESS]
 3. Implement Emojis Appearing on Screen
 4. Implement Words Appearing on Screen
 5. Refactor Logic for Calculating Price (Want to Go Negative)
@@ -9,5 +8,7 @@ Stories:
 7. Research other factors to increase or decrease price 
 
 Not Scoped:
-
 - Add Networth Total and Current Price
+
+Tech Debt:
+- Clean up script.js [IN PROGRESS]
